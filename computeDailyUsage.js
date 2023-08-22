@@ -84,9 +84,11 @@ const buildHoursList = data => {
 
 	const hours = [];
 
-	data.map( day => {
-		hours.push( ...day.MeteredUsageRecords.filter( hour => hour.KilowattHourUsage !== null));
-	});
+	data
+		.filter(v=> v.MeteredUsageRecords != null)
+		.map( day => {
+			hours.push( ...day.MeteredUsageRecords.filter( hour => hour.KilowattHourUsage != null));
+		});
 
 	return hours;
 };
