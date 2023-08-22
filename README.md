@@ -3,10 +3,12 @@ Tools to extract and model Aurora+ usage across different plans.
 
 This project arose out of an interest in knowing if our household would be better off switching to the Peak / Off-Peak tarrif, rather than the fixed T31 and T41 tarrifs.
 
-You will need to be an existing Aurora+ customer on the fixed tarrif.
+To use it, you will need to be an existing Aurora+ customer on the fixed tarrif.
 
 It will download your historical usage data, then work out for each day, how much energy you used in the peak and off-peak times.  You will need to take the final step in a spreadsheet by multiplying the usage values against the current tarrif prices.
 
+### Guarantee and Suitability
+This is provided with no guaranty of accuracy or suitability for its stated purpose.  i.e. If you make financial decisions based on the output of these tools, they are your decision alone.  To emphasise the point, note that this software has no tests or sanity checking, which would be non-negotiables on any commercial software I write.
 ## Instructions:
 
 ### Finding Aurora+ parameters.
