@@ -64,7 +64,7 @@ This tool uses the raw data download, and generates a CSV with peak, off-peak, T
 
 From the command prompt in the project root, execute the follwoing command:
 
-`node computerDailyUsage.js`
+`node computeDailyUsage.js`
 
 The output will be saved to `daySummary.csv`.
 
