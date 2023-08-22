@@ -1,4 +1,3 @@
-import data from './output.json' assert { type: "json" };
 import fs from 'fs';
 
 const config = {
@@ -6,6 +5,19 @@ const config = {
 	csvFile: './daySummary.csv',
 	peakStartHours: [7, 8, 9, 16, 17, 18, 19, 20]
 };
+
+const main = () => {
+	const data = JSON.parse(fs.readFileSync(config.dataFile));
+
+	let hours = buildHoursList(data);
+	
+	const usage = dailyPeakOffPeakUsage(hours);
+	
+	toCSV(usage);
+	
+	console.log(`Complete.  Output saved to ${config.csvFile}`);
+	
+}
 
 const dailyPeakOffPeakUsage = ( data ) => {
 
@@ -108,8 +120,4 @@ const toCSV = data => {
 	writeStream.close();
 };
 
-let hours = buildHoursList(data);
-
-const usage = dailyPeakOffPeakUsage(hours);
-
-toCSV(usage);
+main();
