@@ -1,0 +1,13 @@
+{
+	"auroraAccount": {
+		"authToken": "YOUR_BEARER_TOKEN",
+		"serivceAgreementId": "YOUR_SERVICE_AGREEMENT_ID",
+		"customerId": "YOUR_CUSTOMER_ID"
+	},
+	"tarrifs": {
+		"T31": 0.29947,
+		"T41": 0.19447,
+		"offPeak": 0.16855,
+		"peak": 0.36198
+	}
+}

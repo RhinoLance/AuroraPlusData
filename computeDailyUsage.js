@@ -1,5 +1,7 @@
 import fs from 'fs';
 
+const globalConfig = JSON.parse(fs.readFileSync('./config.json'));
+
 const config = {
 	dataFile: './output.json',
 	csvFile: './daySummary.csv',
@@ -98,21 +100,36 @@ const toCSV = data => {
 	const csv = [];
 
 	data.forEach( (value, key) => {
-		csv.push([
+		
+		const day = [
 			value.date.toLocaleDateString(),
 			value.peak.T31.toFixed(2), 
 			value.offPeak.T31.toFixed(2), 
 			value.peak.T41.toFixed(2), 
 			value.offPeak.T41.toFixed(2),
+			
 			(value.peak.T31 + value.peak.T41).toFixed(2),
 			(value.offPeak.T31 + value.offPeak.T41).toFixed(2),
 			(value.peak.T31 + value.offPeak.T31).toFixed(2),
-			(value.peak.T41 + value.offPeak.T41).toFixed(2)
-		]);
-	});
+			(value.peak.T41 + value.offPeak.T41).toFixed(2),
+		]
 
+		//Add dollar totals
+		day.push( (Number(day[5]) * globalConfig.tarrifs.peak).toFixed(2));
+		day.push( (Number(day[6]) * globalConfig.tarrifs.offPeak).toFixed(2));
+		day.push( (Number(day[7]) * globalConfig.tarrifs.T31).toFixed(2));
+		day.push( (Number(day[8]) * globalConfig.tarrifs.T41).toFixed(2));
+
+		day.push( (Number(day[9]) + Number(day[10])).toFixed(2) ); //peak-offpeak total
+		day.push( (Number(day[11]) + Number(day[12])).toFixed(2) ); //Fixed total
+
+		day.push( (Number(day[14]) - Number(day[13])).toFixed(2) ); //P-OP - Fixed difference
+
+		csv.push(day);
+	});
+	
 	let writeStream = fs.createWriteStream(config.csvFile);
-	writeStream.write('Date,Peak T31,Off Peak T31,Peak T41,Off Peak T41,Peak Total, OffPeak Total,T31 Total,T41 Total\n');
+	writeStream.write('Date,Peak T31,Off Peak T31,Peak T41,Off Peak T41,Peak Total kWh, OffPeak Total kWh,T31 Total kWh,T41 Total kWh,Peak Total $, OffPeak Total $,T31 Total $,T41 Total $, P-OP Total $, Flat Total $, P-OP Savings $\n');
 
 	csv.map( v => {
 		writeStream.write(v.join(','));
