@@ -95,7 +95,11 @@ const buildHoursList = data => {
 	return hours;
 };
 
-const toCSV = data => {
+const toCSV = dataMap => {
+
+	const data = Array.from(dataMap.values());
+
+	data.sort( (a, b) => a.date - b.date);
 
 	const csv = [];
 
